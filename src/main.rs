@@ -13,7 +13,7 @@
 //day 3
 
 fn fizz_buzz( start: i32, end: i32 ) {
-    for i in start..end {
+    for i in start..=end {
         if i % 15 == 0 {
             print!("FizzBuzz,");
         }else if i % 3 == 0 {
