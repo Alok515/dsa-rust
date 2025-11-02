@@ -26,12 +26,17 @@
 //     }
 // }
 
-fn calculate_length( s: String ) -> usize {
+fn calculate_length( s: &String ) -> usize {
     s.len()
 }
 
+fn change( s: &mut String ){
+    s.push_str(", world");
+}
+
 fn main() {
-    let s1 = String::from("hello");
-    let len = calculate_length(s1.clone());
+    let mut s1 = String::from("hello");
+    change(&mut s1);
+    let len = calculate_length(&s1);
     println!("The length of '{}' is {}.", s1, len);
 }
