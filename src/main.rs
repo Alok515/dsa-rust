@@ -26,17 +26,28 @@
 //     }
 // }
 
-fn calculate_length( s: &String ) -> usize {
-    s.len()
-}
+// fn calculate_length( s: &String ) -> usize {
+//     s.len()
+// }
 
-fn change( s: &mut String ){
-    s.push_str(", world");
+// fn change( s: &mut String ){
+//     s.push_str(", world");
+// }
+
+fn first_word( s: &str ) -> &str {
+    for (i, &item) in s.as_bytes().iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+    return &s[..];
 }
 
 fn main() {
-    let mut s1 = String::from("hello");
-    change(&mut s1);
-    let len = calculate_length(&s1);
-    println!("The length of '{}' is {}.", s1, len);
+    let my_string = String::from("Hello World!");
+    let first_string = first_word(&my_string[..]);
+    println!("The first word is: {}", first_string);
+    let my_litral = "Good World!";
+    let first_litral = first_word(my_litral);
+    println!("The first word is: {}", first_litral);
 }
