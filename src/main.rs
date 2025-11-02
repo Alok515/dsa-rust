@@ -12,22 +12,26 @@
 
 //day 3
 
-fn fizz_buzz( start: i32, end: i32 ) {
-    for i in start..=end {
-        if i % 15 == 0 {
-            print!("FizzBuzz,");
-        }else if i % 3 == 0 {
-            print!("Fizz,");
-        }else if i % 5 == 0 {
-            print!("Buzz,");
-        }else {
-            print!("{},", i);
-        }
-    }
+// fn fizz_buzz( start: i32, end: i32 ) {
+//     for i in start..=end {
+//         if i % 15 == 0 {
+//             print!("FizzBuzz,");
+//         }else if i % 3 == 0 {
+//             print!("Fizz,");
+//         }else if i % 5 == 0 {
+//             print!("Buzz,");
+//         }else {
+//             print!("{},", i);
+//         }
+//     }
+// }
+
+fn calculate_length( s: String ) -> usize {
+    s.len()
 }
 
 fn main() {
-    let start = 1;
-    let end = 100;
-    fizz_buzz(start, end);
+    let s1 = String::from("hello");
+    let len = calculate_length(s1.clone());
+    println!("The length of '{}' is {}.", s1, len);
 }
