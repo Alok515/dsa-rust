@@ -1,29 +1,31 @@
-enum WebEvent {
-    PageLoad,
-    PageUnload,
-    KeyPress(char),
-    Click { x: i32, y: i32 }
-}
 
-fn inspect(event: WebEvent) {
-    match event {
-        WebEvent::PageLoad => println!("page loaded"),
-        WebEvent::PageUnload => println!("page unloaded"),
-        WebEvent::KeyPress(c) => println!("pressed '{}'.", c),
-        WebEvent::Click { x, y } => println!("clicked at x={}, y={}.", x, y),
+mod library {
+    pub mod fiction {
+        pub struct Book {
+            pub title: String,
+            pub author: String
+        }
+
+        pub fn borrow_book() {
+            println!("Borrowing a Fiction Book...");
+        } 
+    }
+    pub mod non_fiction {
+        pub fn check_out_book() {
+            println!("Checking out a Non Fiction Book...");
+        }
     }
 }
 
-fn main() {
-    let load = WebEvent::PageLoad;
-    let unload = WebEvent::PageUnload;
-    let press = WebEvent::KeyPress('x');
-    let click1 = WebEvent::Click { x: 100, y: 250 };
-    let click2 = WebEvent::Click { x: 0, y: 0 };
+fn main () {
+    use library::fiction::Book;
+    use library::{fiction, non_fiction};
 
-    inspect(load);
-    inspect(unload);
-    inspect(press);
-    inspect(click1);
-    inspect(click2);
+    let book1 = Book {
+        title: String::from("The Great Gatsby"),
+        author: String::from("F. Scott Fitzgerald")
+    };
+
+    fiction::borrow_book();
+    non_fiction::check_out_book();
 }
