@@ -1,31 +1,22 @@
 
-mod library {
-    pub mod fiction {
-        pub struct Book {
-            pub title: String,
-            pub author: String
-        }
-
-        pub fn borrow_book() {
-            println!("Borrowing a Fiction Book...");
-        } 
-    }
-    pub mod non_fiction {
-        pub fn check_out_book() {
-            println!("Checking out a Non Fiction Book...");
-        }
-    }
-}
-
 fn main () {
-    use library::fiction::Book;
-    use library::{fiction, non_fiction};
+    let mut employees: Vec<String> = Vec::new();
+    let emp1 = String::from("Alice");
+    let emp2 = String::from("Bob");
 
-    let book1 = Book {
-        title: String::from("The Great Gatsby"),
-        author: String::from("F. Scott Fitzgerald")
-    };
+    employees.push(emp1);
+    employees.push(emp2);
 
-    fiction::borrow_book();
-    non_fiction::check_out_book();
+    employees.push(String::from("Charlie"));
+
+    let second_emp = employees.get(1);
+    match second_emp {
+        Some(emp) => println!("The second employee is {}", emp),
+        None => println!("There is no second employee")
+    }
+
+    for emp in &employees {
+        println!("{}", emp);
+    }
+    
 }
