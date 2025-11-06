@@ -1,22 +1,14 @@
+use std::collections::HashMap;
+
 
 fn main () {
-    let mut employees: Vec<String> = Vec::new();
-    let emp1 = String::from("Alice");
-    let emp2 = String::from("Bob");
+    let text = String::from("hello world wonderful world");
+    let mut map: HashMap<String, u32> = HashMap::new();
 
-    employees.push(emp1);
-    employees.push(emp2);
-
-    employees.push(String::from("Charlie"));
-
-    let second_emp = employees.get(1);
-    match second_emp {
-        Some(emp) => println!("The second employee is {}", emp),
-        None => println!("There is no second employee")
+    for word in text.split_whitespace() {
+        let count = map.entry(word.to_string()).or_insert(0);
+        *count += 1;
     }
 
-    for emp in &employees {
-        println!("{}", emp);
-    }
-    
+    println!("{:?}", map);
 }
