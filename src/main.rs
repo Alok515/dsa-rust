@@ -1,3 +1,4 @@
+use std::ops::Drop;
 
 mod list {
     struct Node {
@@ -31,6 +32,17 @@ mod list {
             })
         }
     }
+
+    impl Drop for List {
+        fn drop(&mut self) {
+            let mut current_node = self.head.take();
+
+            println!("List Dropped");
+            while let Some(mut node) = current_node {
+                current_node = node.next.take();
+            }
+        }
+    }
 }
 
 fn main() {
@@ -45,4 +57,10 @@ fn main() {
     println!("Popped: {:?}", my_list.pop());
     println!("Popped: {:?}", my_list.pop());
     println!("Popped: {:?}", my_list.pop());
+
+    my_list.push(4);
+    my_list.push(7);
+    my_list.push(10);
+
+    println!("End of main, list is about to be dropped.");
 }
