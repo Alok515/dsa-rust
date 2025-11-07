@@ -22,6 +22,14 @@ mod list {
 
             self.head = Some(new_node);
         }
+
+        pub fn pop(&mut self) -> Option<i32> {
+            self.head.take().map(|current_node| {
+                self.head = current_node.next;
+
+                current_node.value
+            })
+        }
     }
 }
 
@@ -33,4 +41,8 @@ fn main() {
     my_list.push(9);
 
     println!("List Created");
+    println!("Popped: {:?}", my_list.pop());
+    println!("Popped: {:?}", my_list.pop());
+    println!("Popped: {:?}", my_list.pop());
+    println!("Popped: {:?}", my_list.pop());
 }
