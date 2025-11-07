@@ -13,10 +13,24 @@ mod list {
         pub fn new() -> List {
             List { head: None }
         }
+
+        pub fn push(&mut self, value: i32) {
+            let new_node = Box::new(Node {
+                value: value,
+                next: self.head.take()
+            });
+
+            self.head = Some(new_node);
+        }
     }
 }
 
 fn main() {
     use list::List;
-    let my_list = List::new();
+    let mut my_list = List::new();
+    my_list.push(3);
+    my_list.push(6);
+    my_list.push(9);
+
+    println!("List Created");
 }
