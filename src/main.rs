@@ -1,21 +1,21 @@
-use std::ops::Drop;
 
 mod list {
-    struct Node {
-        value: i32,
-        next: Option<Box<Node>>,
+    use std::ops::Drop;
+    struct Node<T> {
+        value: T,
+        next: Option<Box<Node<T>>>,
     }
 
-    pub struct List {
-        head: Option<Box<Node>>,
+    pub struct List<T> {
+        head: Option<Box<Node<T>>>,
     }
 
-    impl List {
-        pub fn new() -> List {
+    impl<T> List<T> {
+        pub fn new() -> List<T> {
             List { head: None }
         }
 
-        pub fn push(&mut self, value: i32) {
+        pub fn push(&mut self, value: T) {
             let new_node = Box::new(Node {
                 value: value,
                 next: self.head.take()
@@ -24,7 +24,7 @@ mod list {
             self.head = Some(new_node);
         }
 
-        pub fn pop(&mut self) -> Option<i32> {
+        pub fn pop(&mut self) -> Option<T> {
             self.head.take().map(|current_node| {
                 self.head = current_node.next;
 
@@ -33,7 +33,7 @@ mod list {
         }
     }
 
-    impl Drop for List {
+    impl<T> Drop for List<T> {
         fn drop(&mut self) {
             let mut current_node = self.head.take();
 
@@ -47,20 +47,19 @@ mod list {
 
 fn main() {
     use list::List;
-    let mut my_list = List::new();
-    my_list.push(3);
-    my_list.push(6);
-    my_list.push(9);
+    let mut list_i32 = List::new();
 
-    println!("List Created");
-    println!("Popped: {:?}", my_list.pop());
-    println!("Popped: {:?}", my_list.pop());
-    println!("Popped: {:?}", my_list.pop());
-    println!("Popped: {:?}", my_list.pop());
+    list_i32.push(2);
+    list_i32.push(3);
+    
+    println!("List: {:?}", list_i32.pop());
+    println!("List: {:?}", list_i32.pop());
 
-    my_list.push(4);
-    my_list.push(7);
-    my_list.push(10);
+    let mut list_string = List::new();
 
-    println!("End of main, list is about to be dropped.");
+    list_string.push(String::from("Hello"));
+    list_string.push(String::from("World"));
+
+    println!("List: {:?}", list_string.pop());
+    println!("List: {:?}", list_string.pop());
 }
