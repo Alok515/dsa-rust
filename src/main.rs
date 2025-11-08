@@ -1,44 +1,28 @@
 
-mod queue {
-    use std::collections::VecDeque;
+mod bst{
+    use std::cmp::Ord;
 
-    pub struct Queue<T> {
-        elements: VecDeque<T>
+    pub struct Node<T: Ord>{
+        value: T,
+        left: Option<Box<Node<T>>>,
+        right: Option<Box<Node<T>>>
     }
 
-    impl<T> Queue<T> {
-        pub fn new() -> Queue<T> {
-            Queue {
-                elements: VecDeque::new()
+    pub struct BinarySearchTree<T: Ord>{
+        root: Option<Box<Node<T>>>
+    }
+
+    impl<T: Ord> BinarySearchTree<T> {
+        pub fn new() -> Self {
+            Self {
+                root: None
             }
-        }
-
-        pub fn enqueue(&mut self, value: T) {
-            self.elements.push_back(value);
-        }
-
-        pub fn dequeue(&mut self) -> Option<T> {
-            self.elements.pop_front()
-        }
-
-        pub fn is_empty(&self) -> bool {
-            self.elements.is_empty()
         }
     }
 }
 
-fn main() {
-    use queue::Queue;
-
-    let mut queue = Queue::new();
-    println!("Queue is empty: {}", queue.is_empty());
-    queue.enqueue(5);
-    queue.enqueue(10);
-    queue.enqueue(15);
-    println!("Queue is empty: {}", queue.is_empty());
-    println!("Dequeueing Items");
-    while let Some(item) = queue.dequeue() {
-        println!("Item: {}", item);
-    }
-    println!("Queue is empty: {}", queue.is_empty());
+fn main(){
+    use bst::BinarySearchTree;
+    let mut tree: BinarySearchTree<i32> = BinarySearchTree::new();
+    println!("Created Binary Search Tree");
 }
