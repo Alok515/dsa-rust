@@ -1,6 +1,6 @@
 
 mod bst{
-    use std::cmp::Ord;
+    use std::cmp::{Ord, Ordering};
 
     pub struct Node<T: Ord>{
         value: T,
@@ -21,6 +21,19 @@ mod bst{
 
         pub fn insert(&mut self, value: T) {
             Self::insert_recursive(&mut self.root, value);
+        }
+
+        pub fn search(&self, value: T) -> bool {
+            let mut current = &self.root;
+
+            while let Some(node) = current {
+                match value.cmp(&node.value) {
+                    Ordering::Less => current = &node.left,
+                    Ordering::Greater => current = &node.right,
+                    Ordering::Equal => return true
+                }
+            }
+            false
         }
 
         fn insert_recursive(node: &mut Option<Box<Node<T>>>, value: T) {
@@ -58,4 +71,11 @@ fn main(){
     tree.insert(10);
 
     println!("Inserted Items in Tree");
+
+    println!("Tree contains 1: {}", tree.search(1));
+    println!("Tree contains 2: {}", tree.search(2));
+    println!("Tree contains 13: {}", tree.search(130));
+    println!("Tree contains 8: {}", tree.search(8));
+    println!("Tree contains 5: {}", tree.search(5));
+    println!("Tree contains 9: {}", tree.search(19));
 }
