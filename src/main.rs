@@ -1,6 +1,6 @@
 
 mod bst{
-    use std::cmp::{Ord, Ordering};
+    use std::{cmp::{Ord, Ordering}};
 
     pub struct Node<T: Ord>{
         value: T,
@@ -34,6 +34,25 @@ mod bst{
                 }
             }
             false
+        }
+
+        pub fn in_order<'a>(&'a self) -> Vec<&'a T> {
+            let mut res = Vec::new();
+            Self::in_order_recursive(&self.root, &mut res);
+            res
+        }
+
+        fn in_order_recursive<'a>(node: &'a Option<Box<Node<T>>>, res: &mut Vec<&'a T>) {
+            if let Some(current_node) = node {
+                //left 
+                Self::in_order_recursive(&current_node.left, res);
+
+                //root
+                res.push(&current_node.value);
+
+                //right
+                Self::in_order_recursive(&current_node.right, res);
+            }
         }
 
         fn insert_recursive(node: &mut Option<Box<Node<T>>>, value: T) {
@@ -78,4 +97,8 @@ fn main(){
     println!("Tree contains 8: {}", tree.search(8));
     println!("Tree contains 5: {}", tree.search(5));
     println!("Tree contains 9: {}", tree.search(19));
+
+    println!("----In-Order Traversal----");
+    let in_order = tree.in_order();
+    println!("{:?}", in_order);
 }
